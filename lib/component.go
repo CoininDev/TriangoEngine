@@ -5,4 +5,6 @@ type Component interface {
 	Tick()
 	End()
 	GetType() string
+	IsActive() bool
+	SetActive(bool)
 }

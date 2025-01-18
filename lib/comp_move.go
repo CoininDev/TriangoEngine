@@ -5,23 +5,26 @@ import (
 )
 
 type Move struct {
-	IsActive bool
+	Active   bool
 	e        *Entity
 	Velocity Vector2
 	Speed    float64
 }
 
 func NewMove(speed float64) *Move {
-	return &Move{IsActive: true, e: nil, Velocity: Vector2{X: 0, Y: 0}, Speed: speed}
+	return &Move{true, nil, Vector2{X: 0, Y: 0}, speed}
 }
 
-func (m *Move) Start(e *Entity) { m.e = e }
+func (c *Move) IsActive() bool     { return c.Active }
+func (c *Move) SetActive(new bool) { c.Active = new }
+func (m *Move) Start(e *Entity)    { m.e = e }
 func (m *Move) Tick() {
 	direction := Vector2f{}
+	body := m.e.GetComponent("PhysicalBody").(*PhysicalBody)
 	if rl.IsKeyDown(rl.KeyW) {
 		direction.Y -= 1
 	}
-	if rl.IsKeyDown(rl.KeyS) {
+	if rl.IsKeyDown(rl.KeyS) && !body.onFloor {
 		direction.Y += 1
 	}
 	if rl.IsKeyDown(rl.KeyA) {

@@ -19,7 +19,9 @@ func (e *Entity) Start() {
 
 func (e *Entity) Update() {
 	for _, c := range e.components {
-		c.Tick()
+		if c.IsActive() {
+			c.Tick()
+		}
 	}
 }
 

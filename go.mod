@@ -14,6 +14,7 @@ require (
 	github.com/kelindar/smutex v1.0.0 // indirect
 	github.com/klauspost/compress v1.16.6 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
+	github.com/solarlune/resolv v0.8.1 // indirect
 	github.com/tidwall/btree v1.6.0 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	golang.org/x/exp v0.0.0-20250106191152-7588d65b2ba8 // indirect

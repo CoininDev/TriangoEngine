@@ -3,16 +3,18 @@ package lib
 import "fmt"
 
 type Gravity struct {
-	IsActive bool
-	e        *Entity
-	force    Vector2
+	Active bool
+	e      *Entity
+	force  Vector2
 }
 
 func NewGravity(force Vector2) *Gravity {
 	return &Gravity{true, nil, force}
 }
 
-func (g *Gravity) Start(e *Entity) { g.e = e }
+func (c *Gravity) IsActive() bool     { return c.Active }
+func (c *Gravity) SetActive(new bool) { c.Active = new }
+func (g *Gravity) Start(e *Entity)    { g.e = e }
 
 func (g *Gravity) Tick() {
 	velocity := Vector2{g.force.X, g.force.Y}
