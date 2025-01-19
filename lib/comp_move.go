@@ -28,19 +28,23 @@ func (m *Move) Tick() {
 	if i, c := m.e.GetComponent("Sprite"); i != -1 {
 		sprite = c.(*Sprite)
 	}
+	col := NewCollisionRect(0, 0)
+	if i, c := m.e.GetComponent("CollisionRect"); i != -1 {
+		col = c.(*CollisionRect)
+	}
 
 	direction := Vector2f{}
-	if rl.IsKeyDown(rl.KeyW) {
-		direction.Y += 1
-	}
-	if rl.IsKeyDown(rl.KeyS) {
+	if rl.IsKeyDown(rl.KeyW) && !col.Top {
 		direction.Y -= 1
 	}
-	if rl.IsKeyDown(rl.KeyA) {
-		direction.X += 1
+	if rl.IsKeyDown(rl.KeyS) && !col.Bottom {
+		direction.Y += 1
 	}
-	if rl.IsKeyDown(rl.KeyD) {
+	if rl.IsKeyDown(rl.KeyA) && !col.Left {
 		direction.X -= 1
+	}
+	if rl.IsKeyDown(rl.KeyD) && !col.Right {
+		direction.X += 1
 	}
 
 	if direction.X != 0 {

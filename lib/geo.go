@@ -18,8 +18,8 @@ func NewVector2f(x, y float32) Vector2f {
 	return Vector2f{X: x, Y: y}
 }
 
-func NewRect(position, size Vector2) Rect {
-	return Rect{Position: position, Size: size}
+func NewRectf(position, size Vector2f) Rectf {
+	return Rectf{Position: position, Size: size}
 }
 
 func (v Vector2f) Normalize() Vector2f {
@@ -33,11 +33,15 @@ func (v Vector2f) Normalize() Vector2f {
 	}
 }
 
-type Rect struct {
-	Position Vector2
-	Size     Vector2
+func (v Vector2f) Negative() Vector2f {
+	return NewVector2f(-v.X, -v.Y)
 }
 
-func (r Rect) GetCenter() Vector2 {
-	return Vector2{r.Position.X - r.Size.X/2, r.Position.Y - r.Size.Y/2}
+type Rectf struct {
+	Position Vector2f
+	Size     Vector2f
+}
+
+func (r Rectf) GetCenter() Vector2f {
+	return Vector2f{r.Position.X - r.Size.X/2, r.Position.Y - r.Size.Y/2}
 }

@@ -29,7 +29,7 @@ func (s *Sprite) Tick() {
 		s.Texture,
 		rl.NewRectangle(0, 0, float32(s.Texture.Width*int32(s.fliph)), float32(s.Texture.Height*int32(s.flipv))),
 		rl.NewRectangle(0, 0, float32(s.Texture.Width)*t.Scale.X, float32(s.Texture.Height)*t.Scale.Y),
-		rl.NewVector2(t.Position.X, t.Position.Y),
+		rl.Vector2(t.Position.Negative()),
 		t.Rotation,
 		rl.White,
 	)
@@ -47,8 +47,8 @@ type PlaceholderSprite struct {
 	transformIdx int
 }
 
-func NewPlaceholderSprite(size Vector2f, color rl.Color) *PlaceholderSprite {
-	return &PlaceholderSprite{true, nil, size, color, -1}
+func NewPlaceholderSprite(w, h float32, color rl.Color) *PlaceholderSprite {
+	return &PlaceholderSprite{true, nil, NewVector2f(w, h), color, -1}
 }
 
 func (c *PlaceholderSprite) IsActive() bool     { return c.Active }
@@ -62,7 +62,7 @@ func (s *PlaceholderSprite) Tick() {
 	t := s.e.components[s.transformIdx].(*Transform)
 	rl.DrawRectanglePro(
 		rl.NewRectangle(0, 0, s.Size.X, s.Size.Y),
-		rl.NewVector2(t.Position.X, t.Position.Y),
+		rl.Vector2(t.Position.Negative()),
 		t.Rotation,
 		s.Color,
 	)
