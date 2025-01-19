@@ -29,7 +29,7 @@ func (m *Move) Start(e *Entity) {
 		panic("Move component requires Transform, CollisionRect and Sprite components")
 	}
 }
-func (m *Move) Tick() {
+func (m *Move) Tick(_delta float64) {
 	t := m.e.components[m.transformIdx].(*Transform)
 	sprite := m.e.components[m.spriteIdx].(*Sprite)
 	col := m.e.components[m.collisionIdx].(*CollisionRect)
@@ -51,8 +51,8 @@ func (m *Move) Tick() {
 	if direction.X != 0 {
 		sprite.fliph = int(direction.X)
 	}
-	m.Velocity.X = direction.Normalize().X * m.Speed
-	m.Velocity.Y = direction.Normalize().Y * m.Speed
+	m.Velocity.X = direction.Normalize().X * m.Speed * float32(_delta)
+	m.Velocity.Y = direction.Normalize().Y * m.Speed * float32(_delta)
 	t.Position.X += m.Velocity.X
 	t.Position.Y += m.Velocity.Y
 }

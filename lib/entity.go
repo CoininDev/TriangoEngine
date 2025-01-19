@@ -16,10 +16,10 @@ func (e *Entity) Start() {
 	}
 }
 
-func (e *Entity) Update() {
+func (e *Entity) Update(delta float64) {
 	for _, c := range e.components {
 		if c.IsActive() {
-			c.Tick()
+			c.Tick(delta)
 		}
 	}
 }

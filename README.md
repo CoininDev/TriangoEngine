@@ -3,13 +3,8 @@
 
 Não está finalizada e está sendo feita apenas como um aprendizado.
 
-
-
-
-
 ## Objetivos:
 - Física simples (detecção de colisão e gravidade)
-- Separa tick(60ticks por segundo travado) e render(fps variável)
 - Sprites animados
 - Viewport (Uma camada de abstração para a tela e renderização, inspirado em ebitengine Image e godot Viewport)
 - Redimensionar janela e manter viewport

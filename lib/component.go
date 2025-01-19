@@ -2,7 +2,7 @@ package lib
 
 type Component interface {
 	Start(*Entity)
-	Tick()
+	Tick(float64)
 	End()
 	GetType() string
 	IsActive() bool

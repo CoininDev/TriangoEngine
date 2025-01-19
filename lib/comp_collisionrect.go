@@ -29,7 +29,7 @@ func (c *CollisionRect) Start(e *Entity) {
 	}
 }
 
-func (c *CollisionRect) Tick() {
+func (c *CollisionRect) Tick(_delta float64) {
 	t := c.e.components[c.transformIdx].(*Transform)
 	c.rect.Position = t.Position
 

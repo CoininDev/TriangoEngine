@@ -9,7 +9,7 @@ import (
 func main() {
 	rl.InitWindow(800, 600, "PintoGames")
 	defer rl.CloseWindow()
-	rl.SetTargetFPS(60)
+	//rl.SetTargetFPS(60)
 
 	game := lib.Game{}
 	incorporate(&game)
@@ -39,7 +39,7 @@ func incorporate(game *lib.Game) {
 			lib.NewTransform(lib.NewVector2f(0, 0), lib.NewVector2f(0.5, 0.5), 0),
 			lib.NewCollisionRect(256/2, 256/2),
 			lib.NewSprite(rl.LoadTexture("src/shrek.jpg"), 1, 1),
-			lib.NewMove(7),
+			lib.NewMove(200),
 		}),
 	)
 }

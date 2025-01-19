@@ -26,7 +26,7 @@ func (s *Sprite) Start(e *Entity) {
 		panic("Sprite component requires Transform component")
 	}
 }
-func (s *Sprite) Tick() {
+func (s *Sprite) Tick(_delta float64) {
 	t := s.e.components[s.transformIdx].(*Transform)
 	rl.DrawTexturePro(
 		s.Texture,
@@ -61,7 +61,7 @@ func (s *PlaceholderSprite) Start(e *Entity) {
 	s.e = e
 	s.transformIdx, _ = s.e.GetComponent("Transform")
 }
-func (s *PlaceholderSprite) Tick() {
+func (s *PlaceholderSprite) Tick(_delta float64) {
 	t := s.e.components[s.transformIdx].(*Transform)
 	rl.DrawRectanglePro(
 		rl.NewRectangle(0, 0, s.Size.X, s.Size.Y),
