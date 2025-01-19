@@ -10,6 +10,18 @@ type Vector2f struct {
 	X, Y float32
 }
 
+func NewVector2(x, y int32) Vector2 {
+	return Vector2{X: x, Y: y}
+}
+
+func NewVector2f(x, y float32) Vector2f {
+	return Vector2f{X: x, Y: y}
+}
+
+func NewRect(position, size Vector2) Rect {
+	return Rect{Position: position, Size: size}
+}
+
 func (v Vector2f) Normalize() Vector2f {
 	var magnitude = float32(math.Sqrt(float64(v.X*v.X + v.Y*v.Y)))
 	if magnitude == 0 {

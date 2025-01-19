@@ -2,13 +2,12 @@ package lib
 
 type Entity struct {
 	ID         int32
-	Position   Vector2f
 	Game       *Game
 	components []Component
 }
 
-func NewEntity(id int32, game *Game, pos Vector2f, comps []Component) Entity {
-	return Entity{id, pos, game, comps}
+func NewEntity(id int32, game *Game, comps []Component) Entity {
+	return Entity{id, game, comps}
 }
 
 func (e *Entity) Start() {
