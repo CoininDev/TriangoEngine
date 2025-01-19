@@ -1,4 +1,4 @@
-module triangulo
+module triango
 
 go 1.23.4
 
