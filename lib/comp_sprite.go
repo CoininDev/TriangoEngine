@@ -8,17 +8,28 @@ type Sprite struct {
 	Active  bool
 	e       *Entity
 	Texture rl.Texture2D
+	fliph   int
+	flipv   int
+	scale   float32
 }
 
 func (c *Sprite) IsActive() bool     { return c.Active }
 func (c *Sprite) SetActive(new bool) { c.Active = new }
 
-func NewSprite(tex rl.Texture2D) *Sprite {
-	return &Sprite{true, nil, tex}
+func NewSprite(tex rl.Texture2D, fliph, flipv int) *Sprite {
+	return &Sprite{true, nil, tex, fliph, flipv, 1}
 }
 func (s *Sprite) Start(e *Entity) { s.e = e }
 func (s *Sprite) Tick() {
-	rl.DrawTexture(s.Texture, s.e.Position.X, s.e.Position.Y, rl.White)
+	rl.DrawTexturePro(
+		s.Texture,
+		rl.NewRectangle(0, 0, float32(s.Texture.Width*int32(s.fliph)), float32(s.Texture.Height*int32(s.flipv))),
+		rl.NewRectangle(0, 0, float32(s.Texture.Width*int32(s.scale)), float32(s.Texture.Height*int32(s.scale))),
+		rl.NewVector2(float32(s.e.Position.X), float32(s.e.Position.Y)),
+		0,
+		rl.White,
+	)
+
 }
 func (s *Sprite) End() {
 	rl.UnloadTexture(s.Texture)
@@ -41,7 +52,12 @@ func (c *PlaceholderSprite) SetActive(new bool) { c.Active = new }
 
 func (s *PlaceholderSprite) Start(e *Entity) { s.e = e }
 func (s *PlaceholderSprite) Tick() {
-	rl.DrawRectangle(s.e.Position.X, s.e.Position.Y, s.Size.X, s.Size.Y, s.Color)
+	rl.DrawRectanglePro(
+		rl.NewRectangle(0, 0, float32(s.Size.X), float32(s.Size.Y)),
+		rl.NewVector2(float32(s.e.Position.X), float32(s.e.Position.Y)),
+		0,
+		s.Color,
+	)
 }
 func (s *PlaceholderSprite) End()            {}
 func (s *PlaceholderSprite) GetType() string { return "PlaceholderSprite" }
