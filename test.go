@@ -17,7 +17,7 @@ func main() {
 	game.StartGame()
 	for !rl.WindowShouldClose() {
 		rl.BeginDrawing()
-		rl.ClearBackground(rl.LightGray)
+		rl.ClearBackground(rl.Black)
 
 		game.Run()
 
@@ -28,14 +28,8 @@ func main() {
 }
 
 func incorporate(game *lib.Game) {
-	//chão
-	game.Entities = append(game.Entities, lib.NewEntity(0, game, lib.Vector2f{0, 500}, []lib.Component{
-		lib.NewPlaceholderSprite(lib.Vector2{X: 800, Y: 100}, rl.Blue),
-	}))
-
-	//personagem
-	game.Entities = append(game.Entities, lib.NewEntity(1, game, lib.Vector2f{400, 100}, []lib.Component{
-		lib.NewPlaceholderSprite(lib.Vector2{X: 20, Y: 20}, rl.Brown),
-		lib.NewMove(6),
+	game.Entities = append(game.Entities, lib.NewEntity(0, game, lib.Vector2f{X: 10, Y: 10}, []lib.Component{
+		lib.NewSprite(rl.LoadTexture("src/shrek.jpg"), 1, 1, 1),
+		lib.NewMove(10),
 	}))
 }
