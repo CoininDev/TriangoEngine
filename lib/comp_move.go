@@ -10,10 +10,12 @@ type Move struct {
 	Velocity     Vector2f
 	Speed        float32
 	transformIdx int
+	spriteIdx    int
+	collisionIdx int
 }
 
 func NewMove(speed float32) *Move {
-	return &Move{true, nil, Vector2f{X: 0, Y: 0}, speed, -1}
+	return &Move{true, nil, Vector2f{X: 0, Y: 0}, speed, -1, -1, -1}
 }
 
 func (c *Move) IsActive() bool     { return c.Active }
@@ -21,17 +23,16 @@ func (c *Move) SetActive(new bool) { c.Active = new }
 func (m *Move) Start(e *Entity) {
 	m.e = e
 	m.transformIdx, _ = e.GetComponent("Transform")
+	m.collisionIdx, _ = e.GetComponent("CollisionRect")
+	m.spriteIdx, _ = e.GetComponent("Sprite")
+	if m.spriteIdx == -1 || m.transformIdx == -1 || m.collisionIdx == -1 {
+		panic("Move component requires Transform, CollisionRect and Sprite components")
+	}
 }
 func (m *Move) Tick() {
 	t := m.e.components[m.transformIdx].(*Transform)
-	sprite := NewSprite(rl.Texture2D{}, 1, 1)
-	if i, c := m.e.GetComponent("Sprite"); i != -1 {
-		sprite = c.(*Sprite)
-	}
-	col := NewCollisionRect(0, 0)
-	if i, c := m.e.GetComponent("CollisionRect"); i != -1 {
-		col = c.(*CollisionRect)
-	}
+	sprite := m.e.components[m.spriteIdx].(*Sprite)
+	col := m.e.components[m.collisionIdx].(*CollisionRect)
 
 	direction := Vector2f{}
 	if rl.IsKeyDown(rl.KeyW) && !col.Top {
@@ -48,7 +49,7 @@ func (m *Move) Tick() {
 	}
 
 	if direction.X != 0 {
-		sprite.fliph = -int(direction.X)
+		sprite.fliph = int(direction.X)
 	}
 	m.Velocity.X = direction.Normalize().X * m.Speed
 	m.Velocity.Y = direction.Normalize().Y * m.Speed

@@ -24,6 +24,9 @@ func (c *CollisionRect) SetActive(new bool) { c.Active = new }
 func (c *CollisionRect) Start(e *Entity) {
 	c.e = e
 	c.transformIdx, _ = e.GetComponent("Transform")
+	if c.transformIdx == -1 {
+		panic("CollisionRect component requires Transform component")
+	}
 }
 
 func (c *CollisionRect) Tick() {

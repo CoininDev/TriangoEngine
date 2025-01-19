@@ -22,6 +22,9 @@ func NewSprite(tex rl.Texture2D, fliph, flipv int) *Sprite {
 func (s *Sprite) Start(e *Entity) {
 	s.e = e
 	s.transformIdx, _ = s.e.GetComponent("Transform")
+	if s.transformIdx == -1 {
+		panic("Sprite component requires Transform component")
+	}
 }
 func (s *Sprite) Tick() {
 	t := s.e.components[s.transformIdx].(*Transform)
