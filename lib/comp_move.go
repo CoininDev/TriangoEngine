@@ -20,11 +20,10 @@ func (c *Move) SetActive(new bool) { c.Active = new }
 func (m *Move) Start(e *Entity)    { m.e = e }
 func (m *Move) Tick() {
 	direction := Vector2f{}
-	body := m.e.GetComponent("PhysicalBody").(*PhysicalBody)
 	if rl.IsKeyDown(rl.KeyW) {
 		direction.Y -= 1
 	}
-	if rl.IsKeyDown(rl.KeyS) && !body.onFloor {
+	if rl.IsKeyDown(rl.KeyS) {
 		direction.Y += 1
 	}
 	if rl.IsKeyDown(rl.KeyA) {
