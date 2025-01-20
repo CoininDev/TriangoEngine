@@ -2,17 +2,16 @@ package lib
 
 import rl "github.com/gen2brain/raylib-go/raylib"
 
-// Um server é uma forma de criar uma lógica universal, e não individual como são os componentes
-type Server interface {
+type System interface {
 	Start(*Game)
 	Update(*Game, float64)
 	End(*Game)
 }
 
-type RenderServer struct{}
+type RenderSystem struct{}
 
-func (s RenderServer) Start(g *Game) {}
-func (s RenderServer) End(g *Game) {
+func (s RenderSystem) Start(g *Game) {}
+func (s RenderSystem) End(g *Game) {
 	for _, e := range g.Entities {
 		if i := e.GetComponent("Sprite"); i != -1 {
 			s := e.components[i].(*Sprite)
@@ -20,7 +19,7 @@ func (s RenderServer) End(g *Game) {
 		}
 	}
 }
-func (s RenderServer) Update(g *Game, delta float64) {
+func (s RenderSystem) Update(g *Game, delta float64) {
 	for _, e := range g.Entities {
 		if i := e.GetComponent("Sprite"); i != -1 {
 			s := e.components[i].(*Sprite)
@@ -53,11 +52,11 @@ func (s RenderServer) Update(g *Game, delta float64) {
 	}
 }
 
-type PhysicsServer struct{}
+type PhysicsSystem struct{}
 
-func (s PhysicsServer) Start(g *Game) {}
-func (s PhysicsServer) End(g *Game)   {}
-func (s PhysicsServer) Update(g *Game, delta float64) {
+func (s PhysicsSystem) Start(g *Game) {}
+func (s PhysicsSystem) End(g *Game)   {}
+func (s PhysicsSystem) Update(g *Game, delta float64) {
 	for _, e := range g.Entities {
 		if i := e.GetComponent("CollisionRect"); i != -1 {
 			c := e.components[i].(*CollisionRect)
