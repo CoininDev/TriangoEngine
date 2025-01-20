@@ -30,6 +30,7 @@ func main() {
 func incorporate(game *lib.Game) {
 	game.Servers = append(game.Servers,
 		lib.RenderServer{},
+		lib.PhysicsServer{},
 	)
 
 	game.Entities = append(game.Entities,

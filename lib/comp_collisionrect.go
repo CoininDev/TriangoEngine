@@ -1,14 +1,12 @@
 package lib
 
 type CollisionRect struct {
-	Active       bool
-	e            *Entity
-	Top          bool
-	Bottom       bool
-	Left         bool
-	Right        bool
-	transformIdx int
-	rect         Rectf
+	Active bool
+	Top    bool
+	Bottom bool
+	Left   bool
+	Right  bool
+	rect   Rectf
 }
 
 func NewCollisionRect(w, h float32) *CollisionRect {
@@ -18,54 +16,7 @@ func NewCollisionRect(w, h float32) *CollisionRect {
 	}
 }
 
-func (c *CollisionRect) IsActive() bool     { return c.Active }
-func (c *CollisionRect) SetActive(new bool) { c.Active = new }
-
-func (c *CollisionRect) Start(e *Entity) {
-	c.e = e
-	c.transformIdx = e.GetComponent("Transform")
-	if c.transformIdx == -1 {
-		panic("CollisionRect component requires Transform component")
-	}
-}
-
-func (c *CollisionRect) Tick(_delta float64) {
-	t := c.e.components[c.transformIdx].(*Transform)
-	c.rect.Position = t.Position
-
-	// Reset collision states
-	c.Top = false
-	c.Bottom = false
-	c.Left = false
-	c.Right = false
-
-	// Check for collisions with other entities
-	for _, entity := range c.e.Game.Entities {
-		if entity.ID != c.e.ID {
-			if i := entity.GetComponent("CollisionRect"); i != -1 {
-				other := entity.components[i].(*CollisionRect)
-				if c.rect.Intersects(other.rect) {
-					if c.rect.Position.Y < other.rect.Position.Y {
-						c.Bottom = true
-					}
-					if c.rect.Position.Y > other.rect.Position.Y {
-						c.Top = true
-					}
-					if c.rect.Position.X < other.rect.Position.X {
-						c.Right = true
-					}
-					if c.rect.Position.X > other.rect.Position.X {
-						c.Left = true
-					}
-				}
-			}
-		}
-	}
-}
-
-func (c *CollisionRect) End()            {}
 func (c *CollisionRect) GetType() string { return "CollisionRect" }
-
 func (r Rectf) Intersects(other Rectf) bool {
 	return r.Position.X < other.Position.X+other.Size.X &&
 		r.Position.X+r.Size.X > other.Position.X &&
