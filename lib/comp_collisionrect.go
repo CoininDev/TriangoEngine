@@ -23,7 +23,7 @@ func (c *CollisionRect) SetActive(new bool) { c.Active = new }
 
 func (c *CollisionRect) Start(e *Entity) {
 	c.e = e
-	c.transformIdx, _ = e.GetComponent("Transform")
+	c.transformIdx = e.GetComponent("Transform")
 	if c.transformIdx == -1 {
 		panic("CollisionRect component requires Transform component")
 	}
@@ -42,8 +42,8 @@ func (c *CollisionRect) Tick(_delta float64) {
 	// Check for collisions with other entities
 	for _, entity := range c.e.Game.Entities {
 		if entity.ID != c.e.ID {
-			if i, comp := entity.GetComponent("CollisionRect"); i != -1 {
-				other := comp.(*CollisionRect)
+			if i := entity.GetComponent("CollisionRect"); i != -1 {
+				other := entity.components[i].(*CollisionRect)
 				if c.rect.Intersects(other.rect) {
 					if c.rect.Position.Y < other.rect.Position.Y {
 						c.Bottom = true

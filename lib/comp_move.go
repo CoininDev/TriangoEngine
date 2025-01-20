@@ -22,9 +22,9 @@ func (c *Move) IsActive() bool     { return c.Active }
 func (c *Move) SetActive(new bool) { c.Active = new }
 func (m *Move) Start(e *Entity) {
 	m.e = e
-	m.transformIdx, _ = e.GetComponent("Transform")
-	m.collisionIdx, _ = e.GetComponent("CollisionRect")
-	m.spriteIdx, _ = e.GetComponent("Sprite")
+	m.transformIdx = e.GetComponent("Transform")
+	m.collisionIdx = e.GetComponent("CollisionRect")
+	m.spriteIdx = e.GetComponent("Sprite")
 	if m.spriteIdx == -1 || m.transformIdx == -1 || m.collisionIdx == -1 {
 		panic("Move component requires Transform, CollisionRect and Sprite components")
 	}
@@ -49,7 +49,7 @@ func (m *Move) Tick(_delta float64) {
 	}
 
 	if direction.X != 0 {
-		sprite.fliph = int(direction.X)
+		sprite.Fliph = int(direction.X)
 	}
 	m.Velocity.X = direction.Normalize().X * m.Speed * float32(_delta)
 	m.Velocity.Y = direction.Normalize().Y * m.Speed * float32(_delta)

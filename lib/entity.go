@@ -30,11 +30,11 @@ func (e *Entity) Die() {
 	}
 }
 
-func (e *Entity) GetComponent(compType string) (int, Component) {
+func (e *Entity) GetComponent(compType string) int {
 	for i, c := range e.components {
 		if c.GetType() == compType {
-			return i, c
+			return i
 		}
 	}
-	return -1, nil
+	return -1
 }

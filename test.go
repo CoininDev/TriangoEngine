@@ -28,6 +28,10 @@ func main() {
 }
 
 func incorporate(game *lib.Game) {
+	game.Servers = append(game.Servers,
+		lib.RenderServer{},
+	)
+
 	game.Entities = append(game.Entities,
 		lib.NewEntity(0, game, []lib.Component{
 			lib.NewTransform(lib.NewVector2f(350, 250), lib.NewVector2f(1, 1), 0),
