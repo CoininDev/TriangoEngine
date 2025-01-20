@@ -1,5 +1,8 @@
 # Triango Engine
-É uma game engine 2D super simples usando Go, Raylib e um sistema de entidade e componente parecido com a Unity.
+É uma game engine 2D super simples usando Go, Raylib e ECS (Entity-Component-System).
+Entidades são os objetos do jogo, como personagens, inimigos ou itens.
+Componentes são as características ou dados que definem as entidades, como posição, velocidade ou aparência.
+Sistemas são as lógicas que processam as entidades e seus componentes, como movimentação, renderização ou detecção de colisão.
 
 Não está finalizada e está sendo feita apenas como um aprendizado.
 
