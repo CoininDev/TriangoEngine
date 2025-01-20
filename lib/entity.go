@@ -6,8 +6,8 @@ type Entity struct {
 	components []Component
 }
 
-func NewEntity(id int32, game *Game, comps []Component) Entity {
-	return Entity{id, game, comps}
+func NewEntity(game *Game, comps []Component) Entity {
+	return Entity{-1, game, comps}
 }
 
 func (e *Entity) GetComponent(compType string) int {

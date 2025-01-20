@@ -10,6 +10,9 @@ type Game struct {
 
 func (g *Game) StartGame() {
 	g.LastUpdateTime = time.Now()
+	for idx := range g.Entities {
+		g.Entities[idx].ID = int32(idx)
+	}
 	for _, system := range g.Systems {
 		system.Start(g)
 	}
