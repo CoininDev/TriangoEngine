@@ -5,7 +5,6 @@ type Transform struct {
 	Position Vector2f
 	Scale    Vector2f
 	Rotation float32
-	e        *Entity
 }
 
 func NewTransform(position, scale Vector2f, rotation float32) *Transform {
@@ -16,10 +15,4 @@ func NewTransform(position, scale Vector2f, rotation float32) *Transform {
 		Rotation: rotation,
 	}
 }
-
-func (t *Transform) IsActive() bool      { return t.Active }
-func (t *Transform) SetActive(new bool)  { t.Active = new }
-func (t *Transform) Start(e *Entity)     { t.e = e }
-func (t *Transform) Tick(_delta float64) {}
-func (t *Transform) End()                {}
-func (t *Transform) GetType() string     { return "Transform" }
+func (t *Transform) GetType() string { return "Transform" }
