@@ -1,13 +1,15 @@
-package lib
+package comps
+
+import "triango/utils"
 
 type Transform struct {
 	Active   bool
-	Position Vector2f
-	Scale    Vector2f
+	Position utils.Vector2f
+	Scale    utils.Vector2f
 	Rotation float32
 }
 
-func NewTransform(position, scale Vector2f, rotation float32) *Transform {
+func NewTransform(position, scale utils.Vector2f, rotation float32) *Transform {
 	return &Transform{
 		Active:   true,
 		Position: position,

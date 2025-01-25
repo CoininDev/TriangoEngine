@@ -1,9 +1,9 @@
-package lib
+package game
 
 type Entity struct {
 	ID         int32
 	Game       *Game
-	components []Component
+	Components []Component
 }
 
 func NewEntity(game *Game, comps []Component) Entity {
@@ -11,7 +11,7 @@ func NewEntity(game *Game, comps []Component) Entity {
 }
 
 func (e *Entity) GetComponent(compType string) int {
-	for i, c := range e.components {
+	for i, c := range e.Components {
 		if c.GetType() == compType {
 			return i
 		}
