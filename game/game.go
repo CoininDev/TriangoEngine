@@ -14,6 +14,7 @@ func (g *Game) StartGame() {
 		g.Entities[idx].ID = int32(idx)
 	}
 	for _, system := range g.Systems {
+		system.Refresh(g)
 		system.Start(g)
 	}
 }
