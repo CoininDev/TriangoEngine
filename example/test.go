@@ -55,9 +55,9 @@ func incorporate(g *game.Game) {
 		//shrek
 		game.NewEntity(g, []game.Component{
 			comps.NewTransform(utils.NewVector2f(0, 0), utils.NewVector2f(0.5, 0.5), 0),
-			comps.NewRigidBody(1, 256/2, 256/2),
+			//comps.NewRigidBody(1, 256/2, 256/2),
 			comps.NewSprite(rl.LoadTexture("src/shrek.jpg"), 1, 1),
-			comps.NewMove(300),
+			//comps.NewMove(300),
 		}),
 	)
 }

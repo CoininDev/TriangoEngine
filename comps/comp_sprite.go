@@ -22,7 +22,7 @@ func (s *Sprite) GetType() string { return "Sprite" }
 
 type PlaceholderSprite struct {
 	Active       bool
-	Size         utils.Vector2f
+	Size         utils.Vector2
 	Color        rl.Color
 	transformIdx int
 }

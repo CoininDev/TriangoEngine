@@ -32,7 +32,7 @@ func (s *MoveSystem) Update(g *Game, delta float64) {
 			continue
 		}
 
-		direction := Vector2f{}
+		direction := Vector2{}
 		if rl.IsKeyDown(rl.KeyW) {
 			direction.Y -= 1
 		}

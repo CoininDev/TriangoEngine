@@ -7,7 +7,7 @@ import (
 )
 
 type PhysicsSystem struct {
-	Gravity utils.Vector2f
+	Gravity utils.Vector2
 	notable []*game.Entity
 }
 
@@ -48,15 +48,15 @@ func (s *PhysicsSystem) Update(g *game.Game, delta float64) {
 
 			if j := otherE.GetComponent("RigidBody"); j != -1 {
 				other := otherE.Components[j].(*comps.RigidBody)
-				othert := otherE.Components[otherE.GetComponent("Transform")].(*comps.Transform)
-				if b.Rect.Intersects(other.Rect) && b.Type == 1 {
-					b.Velocity = b.Velocity.Add(t.Position.DirectionTo(othert.Position).Roundf().Negative()) // Square Push back
-					//b.Velocity = b.Velocity.Add(t.Position.DirectionTo(othert.Position).Negative()) // Push back
+				intersection := b.Rect.GetIntersectionWith(other.Rect)
+				if intersection.PenetrationDepth > 0 && b.Type == 1 {
+					b.AddForce(intersection.NormalVector)
 				}
 			}
 		}
 
 		// APPLYING VELOCITY
+		b.Velocity = b.Velocity.Add(b.Acceleration.Mulf(float32(delta)))
 		t.Position = t.Position.Add(b.Velocity)
 	}
 }
