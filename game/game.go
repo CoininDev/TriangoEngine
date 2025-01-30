@@ -3,16 +3,16 @@ package game
 import "time"
 
 type Game struct {
-	Entities       []Entity
+	Scenes         []Scene
+	ActiveScene    int
+	GlobalScene    Scene
 	Systems        []System
 	LastUpdateTime time.Time
 }
 
 func (g *Game) StartGame() {
 	g.LastUpdateTime = time.Now()
-	for idx := range g.Entities {
-		g.Entities[idx].ID = int32(idx)
-	}
+	g.ActiveScene = 0
 	for _, system := range g.Systems {
 		system.Start(g)
 	}
@@ -29,4 +29,14 @@ func (g *Game) End() {
 	for _, system := range g.Systems {
 		system.End(g)
 	}
+}
+func (g *Game) ChangeScene(idx int) bool {
+	if idx < len(g.Scenes) {
+		g.ActiveScene = idx
+		return true
+	}
+	return false
+}
+func (g *Game) RefreshActiveScene() {
+
 }
